@@ -1,0 +1,49 @@
+name: SoftBan
+version: ${version}
+main: dev.softban.SoftBanPlugin
+api-version: '1.21.11'
+depend:
+  - ProtocolLib
+authors:
+  - fruit
+description: Soft ban players by silently withholding outbound packets.
+commands:
+  softban:
+    description: Soft-ban a player.
+    usage: /softban <player> [reason...]
+    permission: softban.command.softban
+  softban-ip:
+    description: Soft-ban an IP address or an online player's current IP.
+    usage: /softban-ip <ip|player> [reason...]
+    permission: softban.command.softbanip
+  softbanlist:
+    description: List active soft bans.
+    usage: /softbanlist [players|ips]
+    permission: softban.command.softbanlist
+  softpardon:
+    description: Remove a player soft ban.
+    usage: /softpardon <player>
+    permission: softban.command.softpardon
+  softpardon-ip:
+    description: Remove an IP soft ban.
+    usage: /softpardon-ip <ip|player>
+    permission: softban.command.softpardonip
+permissions:
+  softban.command.softban:
+    default: op
+  softban.command.softbanip:
+    default: op
+  softban.command.softbanlist:
+    default: op
+  softban.command.softpardon:
+    default: op
+  softban.command.softpardonip:
+    default: op
+  softban.command.*:
+    default: op
+    children:
+      softban.command.softban: true
+      softban.command.softbanip: true
+      softban.command.softbanlist: true
+      softban.command.softpardon: true
+      softban.command.softpardonip: true
