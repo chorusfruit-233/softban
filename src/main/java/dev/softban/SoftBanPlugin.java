@@ -7,8 +7,6 @@ import dev.softban.listener.LoginListener;
 import dev.softban.packet.PacketSuppressor;
 import dev.softban.storage.SoftBanRepository;
 import java.io.IOException;
-import java.util.Objects;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SoftBanPlugin extends JavaPlugin {
@@ -35,11 +33,7 @@ public final class SoftBanPlugin extends JavaPlugin {
         packetSuppressor.register();
 
         SoftBanCommand command = new SoftBanCommand(this, repository, softBanService);
-        registerCommand("softban", command);
-        registerCommand("softban-ip", command);
-        registerCommand("softbanlist", command);
-        registerCommand("softpardon", command);
-        registerCommand("softpardon-ip", command);
+        command.register();
     }
 
     @Override
@@ -47,11 +41,5 @@ public final class SoftBanPlugin extends JavaPlugin {
         if (packetSuppressor != null) {
             packetSuppressor.unregister();
         }
-    }
-
-    private void registerCommand(String name, SoftBanCommand executor) {
-        PluginCommand command = Objects.requireNonNull(getCommand(name), "Command not defined in plugin.yml: " + name);
-        command.setExecutor(executor);
-        command.setTabCompleter(executor);
     }
 }
